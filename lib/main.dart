@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:medium/screens/loginscreen.dart';
-import 'package:medium/screens/splashscreen.dart';
+import 'package:medium/screens/wrapper.dart';
 
 void main() => runApp(MaterialApp(
 
-  home: LoginScreen(),
+  home: Wrapper(),
+
 
 ));

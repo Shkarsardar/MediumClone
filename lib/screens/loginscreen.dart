@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medium/service/authservice.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -6,6 +7,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String _email;
+  String _password;
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 55,),
                 TextField(
                   obscureText: false,
+                  onChanged: (email){
+                    this._email=email;
+
+                  },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(5),
                     hintText: "Enter Your Email",
@@ -41,10 +50,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: "Enter Your Password",
 
                   ),
+                  onChanged: (password){
+                    _password=password;
+
+                  },
                 ),
                 SizedBox(height: 30,),
                 MaterialButton(
-                  onPressed: ()=>print("Login"),
+                  onPressed: ()async{
+                    print(_email);
+                    print(_email);
+                    
+                    AuthService authService=new AuthService();
+                    dynamic result= await authService.login(email: _email,password: _password);
+                    print(result);
+
+                    
+                  },
                   padding: EdgeInsets.symmetric(vertical: 10,horizontal: 30),
                   color: Colors.green[500],
                   child: Text("Login",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20,color: Colors.white),),

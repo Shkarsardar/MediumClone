@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medium/screens/newscreen.dart';
+import 'package:medium/service/articleservice.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -49,7 +50,13 @@ class _HomePageState extends State<HomePage> {
               IconButton(
                 splashColor: Colors.transparent,
                 icon: Icon(Icons.search, color: Colors.grey),
-                onPressed: () => print("Search"),
+                onPressed: ()async{
+                  ArticleService articleService=new ArticleService();
+                  await articleService.fetchArticleList();
+                  
+
+
+                },
               ),
             ],
           ),
