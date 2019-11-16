@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medium/screens/homescreen.dart';
+import 'package:medium/screens/wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,10 +13,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(Duration(seconds: 3),(){
       Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context)=>HomePage(),
+        builder: (context)=>Wrapper()
         ));
 
     });
+
+
 
 
   }

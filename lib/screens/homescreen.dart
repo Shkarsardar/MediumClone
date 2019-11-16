@@ -1,15 +1,26 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:medium/screens/newscreen.dart';
 import 'package:medium/service/articleservice.dart';
+import 'package:medium/state/authentication_state.dart';
 
 class HomePage extends StatefulWidget {
+  final StreamController _streamController;
+  HomePage(this._streamController);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  
+  @override
+  void initState() {
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +64,9 @@ class _HomePageState extends State<HomePage> {
                 onPressed: ()async{
                   ArticleService articleService=new ArticleService();
                   await articleService.fetchArticleList();
+
+                  widget._streamController.add(AutheticationState.signOut());
                   
-
-
                 },
               ),
             ],
@@ -113,31 +124,43 @@ class DrawerList extends StatelessWidget {
   DrawerList({
     Key key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
       runSpacing: 0.5,
+
       children: <Widget>[
         ListTile(
-          title: Text("Home",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w600),),
-          onTap: ()=>print("Home screen"),
+          title: Text("Home",style: TextStyle(fontSize: fontSize,fontWeight:FontWeight.w400),),
+          onTap: (){
+
+          },
         ),
         ListTile(
           title: Text("Audio",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w400),),
+          onTap: (){
+          },  
         ),
         ListTile(
           title: Text("Reading List",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w400),),
+          onTap: (){},
         ),
         ListTile(
           title: Text("Interests",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w400),),
+          onTap: (){},
+
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child:Divider(color: Colors.grey,) ,
+
         ),
 
         ListTile(
           title: Text("Become a member",style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400,color: Colors.green[800]),),
+          onTap: (){},
+          
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
@@ -145,12 +168,18 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           title: Text("New Story",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w400)),
+          onTap: (){},
+          
         ),
         ListTile(
           title: Text("Stats",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w600,color: Colors.black),),
+          onTap: (){},
+          
         ),
         ListTile(
           title: Text("Stories",style: TextStyle(fontSize: fontSize,fontWeight: FontWeight.w400)),
+          onTap: (){},
+          
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -166,6 +195,8 @@ class DrawerList extends StatelessWidget {
                 child: Text("Settings"),
               ),
               InkWell(
+                splashColor: Colors.transparent,
+
                 onTap: ()=>print("Hello there"),
                 child: Text("Help"),
               )

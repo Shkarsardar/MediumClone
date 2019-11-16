@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:medium/service/authservice.dart';
+import 'package:medium/state/authentication_state.dart';
 
 class LoginScreen extends StatefulWidget {
+  final StreamController<AutheticationState> _streamController;
+  LoginScreen(this._streamController);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -58,12 +64,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 30,),
                 MaterialButton(
                   onPressed: ()async{
-                    print(_email);
-                    print(_email);
-                    
                     AuthService authService=new AuthService();
                     dynamic result= await authService.login(email: _email,password: _password);
-                    print(result);
+                    if (result==true) 
+                    {
+                      widget._streamController.add(AutheticationState.authenticated());
+                    }
+                    
+
+
 
                     
                   },

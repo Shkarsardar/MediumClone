@@ -1,34 +1,40 @@
-import 'dart:ffi';
+import 'dart:async';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:medium/screens/homescreen.dart';
 import 'package:medium/screens/loginscreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:medium/service/authservice.dart';
+import 'package:medium/state/authentication_state.dart';
 class Wrapper extends StatelessWidget {
-  SharedPreferences sharedPreferences;
+  final StreamController<AutheticationState> _streamController=new StreamController<AutheticationState>();
 
+  Widget buildUi(BuildContext context,AutheticationState autheticationState)
+  {
+    AuthService authService=new AuthService();
+    authService.isAuthenticated(_streamController);
+    
+    if (autheticationState.authenticated) 
+    {
+      return HomePage(_streamController);
+
+    }
+    else{
+      return LoginScreen(_streamController);
+
+    }
+
+
+  }  
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _getPrefs(),
-      builder: (context,snapshot){
-        if (snapshot.hasData) 
-        {
-          return HomePage();
-
-        }
-        else{
-          return LoginScreen();
-
-        }
+    return StreamBuilder<AutheticationState>(
+      stream: _streamController.stream,
+      initialData: AutheticationState.initail(),
+      builder: (BuildContext context,AsyncSnapshot<AutheticationState> snapshot){
+        final state=snapshot.data;
+        return buildUi(context,state);
       },
     );
-
   }
-  Future<void> _getPrefs()async{
-    sharedPreferences=await SharedPreferences.getInstance();
 
-  }
 }
