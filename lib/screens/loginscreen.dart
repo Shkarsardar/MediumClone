@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:medium/screens/registerscreen.dart';
 import 'package:medium/service/authservice.dart';
 import 'package:medium/state/authentication_state.dart';
 
@@ -83,8 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 InkWell(
-                  onTap: ()=>print("Create Account"),
-                  child: Text("Create Account"),
+                  onTap: ()async{
+
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+
+                  },
+                  child: Text("Create Account",style:TextStyle(color: Colors.green[600]),),
                 )
 
               ],

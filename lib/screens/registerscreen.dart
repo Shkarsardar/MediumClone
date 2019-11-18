@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:medium/screens/loginscreen.dart';
+import 'package:medium/screens/wrapper.dart';
+import 'package:medium/state/authentication_state.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -129,7 +131,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (_formKey.currentState.validate()) 
                       {
 
-
                       }
                     },
                     padding: EdgeInsets.symmetric(vertical: 10,horizontal: 30),
@@ -140,9 +141,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 20),
                   InkWell(
                     onTap: (){
-                      StreamController _streamController;
-                      
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen(_streamController)));
+
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Wrapper()));
+
                       
                     },
                     child: Text("I have account",style: TextStyle(color: Colors.green[600]),),
