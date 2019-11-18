@@ -5,7 +5,7 @@ import 'package:medium/screens/wrapper.dart';
 
 void main() => runApp(MaterialApp(
 
-  home: RegisterScreen(),
+  home: Wrapper(),
 
 
 ));

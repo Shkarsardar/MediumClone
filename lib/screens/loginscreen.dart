@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 MaterialButton(
                   onPressed: ()async{
                     AuthService authService=new AuthService();
-                    dynamic result= await authService.login(email: _email,password: _password);
+                    var result= await authService.login(email: _email,password: _password);
                     if (result==true) 
                     {
                       widget._streamController.add(AutheticationState.authenticated());

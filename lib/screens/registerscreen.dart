@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:medium/screens/loginscreen.dart';
 import 'package:medium/screens/wrapper.dart';
-import 'package:medium/state/authentication_state.dart';
+import 'package:medium/service/registerservice.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -92,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       contentPadding: EdgeInsets.all(5),
                       hintText: "Password",
                       suffixIcon: GestureDetector(
-                        child: Icon(Icons.remove_red_eye,color: _isPasswordShown?Theme.of(context).accentColor:Colors.grey,),
+                        child: Icon(Icons.remove_red_eye,color: !_isPasswordShown?Theme.of(context).accentColor:Colors.grey,),
                         onTap: (){
                           print("Password Shown");
                           showPassword();
@@ -130,6 +127,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: ()async{
                       if (_formKey.currentState.validate()) 
                       {
+                        var registerService=new RegisterService();
+                        var result=await registerService.registerUser(email: _email,password: _password);
+                        if (result==201) 
+                        {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Wrapper()));
+                          
+                        }
+                        else if (result==400) 
+                        {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context)
+                              {
+                                return new AlertDialog(title:Text("username should be unique"),content: Text("Please change your email to another one"));
+
+                              }
+                            );
+                        }
+                        
 
                       }
                     },
@@ -143,7 +159,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onTap: (){
 
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Wrapper()));
-
                       
                     },
                     child: Text("I have account",style: TextStyle(color: Colors.green[600]),),
